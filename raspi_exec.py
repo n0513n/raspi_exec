@@ -17,28 +17,6 @@ from time import time, sleep
 
 __git__ = 'https://github.com/n0513n/raspi_exec'
 
-# Default command to execute
-CMD = []
-
-# GPIO port to keep watch
-PORT = 40
-
-# Custom commands to execute
-CMD_CHECK = []
-CMD_START = []
-
-# Seconds to recheck condition
-RECHECK = 0
-
-# Seconds to wait every turn
-WAIT = 0.25
-
-# Initial boolean state
-DEFAULT = False
-
-# Main display; do not edit
-SCREEN = "DISPLAY=:0"
-
 # Try and import from file
 if isfile('config.py'):
     print('Importing settings from "config.py"...')
@@ -88,6 +66,8 @@ def start_script():
                     while not started:
                         send_command(CMD_START, bg=True); sleep(1)
                         started = check_command(CMD_CHECK)
+                    send_command(CMD_FOCUS); sleep(0.25)
+                    send_command(CMD_ABOVE); sleep(0.25)
                     send_command(CMD) if DEFAULT else None
 
                 tstamp = time()
